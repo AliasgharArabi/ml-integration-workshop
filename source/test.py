@@ -13,13 +13,19 @@ endpoint_name = f"{stack_name}-{commit_id[:7]}"
 
 runtime = boto3.client("runtime.sagemaker")
 
+s3 = boto3.resource('s3')
+s3_bucket, s3_key = 'ml-sa-book', 'sample_9.png'
+
+img = s3.Bucket(s3_bucket).download_file(s3_key, 'test.png')
+test_file = "test.png"
+
 #IMAGE_URL = "https://aws-mlops-samples.s3-eu-west-1.amazonaws.com/mnist_output_10.png"
-IMAGE_URL = "https://test-mlops-bucket-118.s3.amazonaws.com/sample_9.png"
-test_file = "test.jpg"
-wget.download(
-    IMAGE_URL,
-    test_file,
-)
+#IMAGE_URL = "https://test-mlops-bucket-118.s3.amazonaws.com/sample_9.png"
+#test_file = "test.jpg"
+#wget.download(
+#    IMAGE_URL,
+#    test_file,
+#)
 
 image = imread(test_file, IMREAD_GRAYSCALE)
 image = resize(image, (28, 28))
